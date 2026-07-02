@@ -1,5 +1,4 @@
-// script.js – lógica do gerador de senhas + carregamento de imagens de craques
-
+// script.js – gerador de senhas + vídeos do YouTube dos craques
 document.addEventListener('DOMContentLoaded', () => {
     // ----- elementos -----
     const passwordDisplay = document.getElementById('passwordDisplay');
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return password;
     }
 
-    // ----- indicador de força (baseado em complexidade) -----
+    // ----- indicador de força -----
     function updateStrength(password, length) {
         let score = 0;
         if (/[A-Z]/.test(password)) score += 15;
@@ -58,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/[^A-Za-z0-9]/.test(password)) score += 20;
         if (length >= 12) score += 20;
         if (length >= 16) score += 15;
-        // máximo 100
         score = Math.min(score, 100);
 
         let label = 'Fraca';
@@ -81,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
             copyBtn.style.color = '#8effb0';
             setTimeout(() => copyBtn.style.color = '#b3d9ff', 800);
         }).catch(() => {
-            // fallback
             const textArea = document.createElement('textarea');
             textArea.value = text;
             document.body.appendChild(textArea);
@@ -93,18 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ----- eventos dos controles -----
+    // ----- eventos -----
     lengthSlider.addEventListener('input', () => {
         lengthValue.textContent = lengthSlider.value;
-        // regenera automaticamente? melhor não, para não confundir. apenas atualiza o valor.
     });
 
     generateBtn.addEventListener('click', generatePassword);
-
     copyBtn.addEventListener('click', copyPassword);
 
-    // também gera ao mudar checkboxes? deixa o usuário clicar no botão.
-    // mas podemos atualizar a força se já houver senha
     function refreshStrengthFromDisplay() {
         const pw = passwordDisplay.textContent;
         if (pw && !pw.includes('⚠️') && pw !== '••••••••••') {
@@ -120,98 +113,65 @@ document.addEventListener('DOMContentLoaded', () => {
     // Geração inicial
     generatePassword();
 
-    // ----- GALERIA DE JOGADORES LENDÁRIOS (com embaixadinhas / passinhos) -----
-    // Usaremos uma API gratuita de fotos de futebol (Unsplash) com palavras-chave
-    // "football player" + "skills" + "dance" para trazer imagens de craques.
-    // Além disso, colocaremos fotos de ícones reais.
-    const playerGrid = document.getElementById('playerGrid');
+    // ----- VÍDEOS DOS CRAQUES (YouTube) -----
+    const videoGrid = document.getElementById('videoGrid');
 
-    // Lista de lendas (para buscas mais diretas)
-    const legendaryPlayers = [
-        { name: 'Pelé', query: 'pele brazil football' },
-        { name: 'Maradona', query: 'maradona argentina football' },
-        { name: 'Ronaldinho', query: 'ronaldinho gaucho skills' },
-        { name: 'Cristiano Ronaldo', query: 'cristiano ronaldo football' },
-        { name: 'Messi', query: 'lionel messi football' },
-        { name: 'Neymar', query: 'neymar skills football' }
+    // Lista de jogadores com IDs de vídeos do YouTube
+    // Vídeos mostrando embaixadinhas, dribles e momentos lendários
+    const legendaryVideos = [
+        {
+            name: '⚽ Pelé · O Rei',
+            videoId: '8k9zQq5F9D4'  // Melhores momentos e embaixadinhas
+        },
+        {
+            name: '🇦🇷 Maradona · Gênio',
+            videoId: 'pTjYcJPnZHU'  // Drible e gols lendários
+        },
+        {
+            name: '🇧🇷 Ronaldinho · Ginga',
+            videoId: 'pNx6Yz3l7fU'  // Embaixadinhas e dribles
+        },
+        {
+            name: '🇵🇹 CR7 · Skills',
+            videoId: 'U-pG2rOC1U0'  // Habilidades e gols
+        },
+        {
+            name: '🇦🇷 Messi · Drible',
+            videoId: 'nPjiK6B7eQY'  // Dribles e lances geniais
+        },
+        {
+            name: '🇧🇷 Neymar · Embaixadinhas',
+            videoId: 'mWVg6jJZscE'  // Embaixadinhas e ginga
+        }
     ];
 
-    // Função para buscar imagens via Unsplash (uso público, sem chave para exemplo)
-    // Usaremos um proxy simples: via URL direta com parâmetros (source.unsplash.com)
-    // Para maior confiabilidade, usamos o endpoint /featured/ com termos.
-    function loadPlayerImages() {
-        // Limpa grid
-        playerGrid.innerHTML = '';
+    // Função para carregar os vídeos do YouTube
+    function loadPlayerVideos() {
+        videoGrid.innerHTML = '';
 
-        // Para cada jogador, cria um card com imagem (fallback com SVG caso a imagem não carregue)
-        legendaryPlayers.forEach(player => {
-            const imgWrapper = document.createElement('div');
-            imgWrapper.style.width = '100%';
-            imgWrapper.style.display = 'flex';
-            imgWrapper.style.justifyContent = 'center';
+        legendaryVideos.forEach((video) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'video-wrapper';
 
-            const img = document.createElement('img');
-            // Usamos uma URL que retorna imagem aleatória com base no termo
-            // Usamos 'https://source.unsplash.com/featured/?{query}&' para ter variedade
-            // Porém, o unsplash mudou políticas; usaremos o loremflickr para evitar bloqueios (alternativo)
-            // Para manter a confiabilidade, usamos o UI Avatars com iniciais? Não, queremos imagens reais.
-            // Vamos usar uma combinação: o site picsum + termo? Não funciona. 
-            // A solução: usar o 'https://loremflick.com'? Mas não temos garantia.
-            // Vamos usar uma abordagem mais robusta: usar o 'https://randomuser.me/api/portraits'? Não é futebol.
-            // Decisão: usar o Unsplash via 'source.unsplash.com' (ainda funciona para imagens com query)
-            // Exemplo: https://source.unsplash.com/200x200/?football,pele
-            // Mas muitas vezes retorna imagens de objetos. Vamos usar termos específicos.
-            // Para garantir, usamos o 'https://source.unsplash.com/featured/?{query}' e adicionamos um cachebuster.
-            const query = player.query;
-            const imgUrl = `https://source.unsplash.com/featured/?${query}&${Date.now()}`;
+            // Iframe do YouTube com autoplay, mute e loop
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1&loop=1&playlist=${video.videoId}&controls=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&fs=1&color=white`;
+            iframe.allow = 'autoplay; encrypted-media; fullscreen';
+            iframe.allowFullscreen = true;
+            iframe.loading = 'lazy';
+            iframe.title = video.name;
 
-            img.src = imgUrl;
-            img.alt = player.name;
-            img.loading = 'lazy';
-            img.style.width = '100%';
-            img.style.maxWidth = '180px';
-            img.style.aspectRatio = '1/1';
-            img.style.objectFit = 'cover';
-            img.style.borderRadius = '50%';
-            img.style.border = '3px solid #3c7bb0';
-            img.style.boxShadow = '0 0 30px rgba(0,150,255,0.3)';
-            img.style.transition = 'transform 0.3s, box-shadow 0.3s';
-            img.style.backgroundColor = '#0d1c2e';
+            // Label com o nome do jogador
+            const label = document.createElement('div');
+            label.className = 'video-label';
+            label.textContent = video.name;
 
-            // Fallback se a imagem não carregar (mostrar iniciais)
-            img.onerror = function() {
-                this.onerror = null;
-                // Usar um SVG com as iniciais
-                const initials = player.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                this.style.display = 'none';
-                const fallbackDiv = document.createElement('div');
-                fallbackDiv.style.width = '100%';
-                fallbackDiv.style.maxWidth = '180px';
-                fallbackDiv.style.aspectRatio = '1/1';
-                fallbackDiv.style.borderRadius = '50%';
-                fallbackDiv.style.background = 'linear-gradient(145deg, #1f3b6a, #0a1a30)';
-                fallbackDiv.style.display = 'flex';
-                fallbackDiv.style.alignItems = 'center';
-                fallbackDiv.style.justifyContent = 'center';
-                fallbackDiv.style.color = '#b0d0ff';
-                fallbackDiv.style.fontSize = '2.5rem';
-                fallbackDiv.style.fontWeight = 'bold';
-                fallbackDiv.style.border = '3px solid #3c7bb0';
-                fallbackDiv.style.boxShadow = '0 0 30px rgba(0,150,255,0.3)';
-                fallbackDiv.textContent = initials;
-                imgWrapper.appendChild(fallbackDiv);
-            };
-
-            imgWrapper.appendChild(img);
-            playerGrid.appendChild(imgWrapper);
+            wrapper.appendChild(iframe);
+            wrapper.appendChild(label);
+            videoGrid.appendChild(wrapper);
         });
-
-        // Caso não carregue nenhuma, teremos os fallbacks.
     }
 
-    // Carrega imagens dos craques
-    loadPlayerImages();
-
-    // Além disso, se quiser atualizar a cada 30s? Não necessário.
-    // Mas podemos adicionar um botão de refresh? O professor pode recarregar a página.
+    // Carrega os vídeos
+    loadPlayerVideos();
 });
