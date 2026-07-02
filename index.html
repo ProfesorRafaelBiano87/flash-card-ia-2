@@ -4,12 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚡ Gerador Tech · Senhas Lendárias</title>
-    <!-- CSS externo -->
     <link rel="stylesheet" href="style.css">
-    <!-- Favicon tecnológico -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 </head>
 <body>
+    <!-- Fundo temático com vídeo de estádio/copa -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline id="bgVideo">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Bolas de futebol flutuantes -->
+    <div class="floating-balls">
+        <div class="ball" style="--i:0; left:5%; animation-delay:0s;"></div>
+        <div class="ball" style="--i:1; left:20%; animation-delay:2s;"></div>
+        <div class="ball" style="--i:2; left:40%; animation-delay:4s;"></div>
+        <div class="ball" style="--i:3; left:60%; animation-delay:1s;"></div>
+        <div class="ball" style="--i:4; left:80%; animation-delay:3s;"></div>
+        <div class="ball" style="--i:5; left:92%; animation-delay:5s;"></div>
+    </div>
+
     <div class="container">
         <header class="header">
             <h1>⚡ GERADOR <span>TECH</span></h1>
@@ -17,7 +33,6 @@
         </header>
 
         <main class="card">
-            <!-- Área da senha -->
             <div class="password-box">
                 <div class="password-display" id="passwordDisplay">••••••••••</div>
                 <button class="copy-btn" id="copyBtn" title="copiar senha">
@@ -28,7 +43,6 @@
                 </button>
             </div>
 
-            <!-- Controles -->
             <div class="controls">
                 <div class="length-control">
                     <label for="lengthSlider">tamanho: <span id="lengthValue">16</span></label>
@@ -45,20 +59,19 @@
                 <button class="generate-btn" id="generateBtn">⟳ gerar senha</button>
             </div>
 
-            <!-- Dica de segurança -->
             <div class="strength-bar">
                 <div class="strength-fill" id="strengthFill" style="width: 80%;"></div>
                 <span class="strength-label" id="strengthLabel">Forte</span>
             </div>
         </main>
 
-        <!-- GALERIA DE ÍDOLOS (imagens de jogadores lendários) -->
+        <!-- GALERIA DE VÍDEOS DOS CRAQUES -->
         <section class="gallery">
-            <h2>⚽ craques em ação</h2>
-            <div class="player-grid" id="playerGrid">
-                <!-- as imagens serão injetadas via JS (API de placeholder com futebol) -->
+            <h2>⚽ craques em ação · embaixadinhas & ginga</h2>
+            <div class="video-grid" id="videoGrid">
+                <!-- Vídeos do YouTube serão inseridos via JS -->
             </div>
-            <p class="credit">ícones do futebol mundial · embaixadinhas & ginga</p>
+            <p class="credit">ícones do futebol mundial · momentos lendários</p>
         </section>
 
         <footer class="footer">
@@ -66,7 +79,6 @@
         </footer>
     </div>
 
-    <!-- JavaScript externo -->
     <script src="script.js"></script>
 </body>
 </html>
