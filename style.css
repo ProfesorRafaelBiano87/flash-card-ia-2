@@ -1,0 +1,337 @@
+/* style.css – layout inovador, tecnológico e com referências ao futebol */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at 20% 30%, #0a0f1e, #03050b);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* efeito de grade tecnológica (fundo sutil) */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.header h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, #b0f0ff, #7a9cff, #b388ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 30px rgba(90, 150, 255, 0.3);
+    display: inline-block;
+    padding: 0 1rem;
+    border-right: 2px solid rgba(100, 200, 255, 0.3);
+    border-left: 2px solid rgba(100, 200, 255, 0.3);
+}
+.header h1 span {
+    background: linear-gradient(145deg, #f9f9ff, #c0d0ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 300;
+}
+.subtitle {
+    color: #8ab4f8;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    opacity: 0.8;
+    text-shadow: 0 0 15px #3a6ea5;
+}
+
+/* CARD PRINCIPAL – estilo "vidro tecnológico" */
+.card {
+    background: rgba(12, 20, 35, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(100, 180, 255, 0.25);
+    border-radius: 48px;
+    padding: 2.5rem 2.8rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 180, 255, 0.1) inset;
+    margin-bottom: 3.5rem;
+    transition: box-shadow 0.3s;
+}
+.card:hover {
+    box-shadow: 0 40px 70px rgba(0, 40, 100, 0.5), 0 0 0 2px rgba(0, 200, 255, 0.2) inset;
+}
+
+/* password display */
+.password-box {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 10, 25, 0.7);
+    border-radius: 80px;
+    padding: 0.2rem 0.2rem 0.2rem 2rem;
+    border: 1px solid #2a4c7a;
+    box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+    margin-bottom: 2rem;
+}
+.password-display {
+    flex: 1;
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #d0eaff;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    padding: 0.8rem 0.5rem;
+    text-shadow: 0 0 12px #3f9eff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.copy-btn {
+    background: #1d3b66;
+    border: none;
+    border-radius: 60px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #b3d9ff;
+    box-shadow: 0 0 15px rgba(0, 120, 255, 0.3);
+}
+.copy-btn:hover {
+    background: #2f5a92;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #3f7ec0;
+    color: white;
+}
+.copy-btn:active { transform: scale(0.95); }
+
+/* controles */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.8rem;
+    margin: 1.5rem 0 1.8rem;
+}
+.length-control {
+    flex: 2;
+    min-width: 180px;
+}
+.length-control label {
+    color: #b8d6ff;
+    font-weight: 400;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+}
+.length-control input[type="range"] {
+    width: 100%;
+    margin-top: 6px;
+    -webkit-appearance: none;
+    background: transparent;
+}
+.length-control input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    background: linear-gradient(90deg, #0055aa, #5aa9ff);
+    border-radius: 10px;
+}
+.length-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #9bcaff;
+    margin-top: -7px;
+    box-shadow: 0 0 20px #00a6ff;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    flex: 3;
+    justify-content: flex-start;
+}
+.options label {
+    color: #b0caf0;
+    font-weight: 500;
+    background: rgba(20, 40, 70, 0.5);
+    padding: 0.3rem 0.9rem;
+    border-radius: 40px;
+    border: 1px solid #2f5380;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+.options label:hover {
+    background: #1f3f6a;
+    border-color: #6a9eff;
+}
+.options input[type="checkbox"] {
+    accent-color: #3f9eff;
+    width: 16px;
+    height: 16px;
+}
+.generate-btn {
+    background: linear-gradient(145deg, #0044aa, #002b70);
+    border: none;
+    border-radius: 60px;
+    padding: 0.9rem 2.2rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: white;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 0 25px #0044ff88;
+    transition: all 0.25s;
+    border: 1px solid #3f8aff;
+    flex: 1;
+    min-width: 150px;
+}
+.generate-btn:hover {
+    transform: scale(1.03);
+    background: linear-gradient(145deg, #2266dd, #003b99);
+    box-shadow: 0 0 45px #1a6eff;
+}
+
+/* barra de força */
+.strength-bar {
+    margin-top: 1.8rem;
+    height: 12px;
+    background: #152a44;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #2a4f7a;
+}
+.strength-fill {
+    height: 100%;
+    width: 80%;
+    background: linear-gradient(90deg, #00d4ff, #00ff94);
+    border-radius: 20px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 20px #00e0ff;
+}
+.strength-label {
+    position: absolute;
+    right: 10px;
+    top: -22px;
+    font-size: 0.8rem;
+    color: #aaccff;
+    font-weight: 500;
+    text-shadow: 0 0 10px #0066ff;
+}
+
+/* GALERIA DE JOGADORES LENDÁRIOS – com embaixadinhas e ginga */
+.gallery {
+    background: rgba(8, 16, 30, 0.5);
+    backdrop-filter: blur(4px);
+    border-radius: 60px;
+    padding: 2.2rem 2rem;
+    border: 1px solid rgba(0, 180, 255, 0.15);
+    margin-top: 1.5rem;
+}
+.gallery h2 {
+    color: #b6d6ff;
+    font-weight: 300;
+    letter-spacing: 3px;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1.8rem;
+    text-shadow: 0 0 20px #0066ff33;
+    border-bottom: 1px dashed #2a4f7a;
+    padding-bottom: 0.5rem;
+}
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+}
+.player-grid img {
+    width: 100%;
+    max-width: 180px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #3c7bb0;
+    box-shadow: 0 0 30px rgba(0, 150, 255, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: #0d1c2e;
+    display: block;
+}
+.player-grid img:hover {
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 0 50px #0099ff;
+    border-color: #a0d0ff;
+}
+.credit {
+    text-align: center;
+    margin-top: 1.8rem;
+    color: #5a7fa5;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    border-top: 1px solid #1f3b5a;
+    padding-top: 1rem;
+}
+
+/* footer */
+.footer {
+    margin-top: 2.5rem;
+    text-align: center;
+    color: #3b5f85;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    border-top: 1px solid #1d3450;
+    padding-top: 1.8rem;
+    opacity: 0.7;
+}
+
+/* responsivo */
+@media (max-width: 700px) {
+    .card { padding: 1.8rem; }
+    .header h1 { font-size: 2.6rem; }
+    .password-display { font-size: 1.5rem; }
+    .options { gap: 0.6rem; }
+    .controls { gap: 1.2rem; }
+    .player-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .password-box { padding-left: 1rem; flex-wrap: wrap; }
+    .copy-btn { width: 50px; height: 50px; }
+    .generate-btn { font-size: 1rem; padding: 0.7rem 1.5rem; }
+}
