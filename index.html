@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Gerador Tech · Senhas Lendárias</title>
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon tecnológico -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>⚡ GERADOR <span>TECH</span></h1>
+            <p class="subtitle">senhas fortes com estilo de craque</p>
+        </header>
+
+        <main class="card">
+            <!-- Área da senha -->
+            <div class="password-box">
+                <div class="password-display" id="passwordDisplay">••••••••••</div>
+                <button class="copy-btn" id="copyBtn" title="copiar senha">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Controles -->
+            <div class="controls">
+                <div class="length-control">
+                    <label for="lengthSlider">tamanho: <span id="lengthValue">16</span></label>
+                    <input type="range" id="lengthSlider" min="6" max="30" value="16">
+                </div>
+
+                <div class="options">
+                    <label><input type="checkbox" id="uppercase" checked> ABC</label>
+                    <label><input type="checkbox" id="lowercase" checked> abc</label>
+                    <label><input type="checkbox" id="numbers" checked> 123</label>
+                    <label><input type="checkbox" id="symbols" checked> #&@</label>
+                </div>
+
+                <button class="generate-btn" id="generateBtn">⟳ gerar senha</button>
+            </div>
+
+            <!-- Dica de segurança -->
+            <div class="strength-bar">
+                <div class="strength-fill" id="strengthFill" style="width: 80%;"></div>
+                <span class="strength-label" id="strengthLabel">Forte</span>
+            </div>
+        </main>
+
+        <!-- GALERIA DE ÍDOLOS (imagens de jogadores lendários) -->
+        <section class="gallery">
+            <h2>⚽ craques em ação</h2>
+            <div class="player-grid" id="playerGrid">
+                <!-- as imagens serão injetadas via JS (API de placeholder com futebol) -->
+            </div>
+            <p class="credit">ícones do futebol mundial · embaixadinhas & ginga</p>
+        </section>
+
+        <footer class="footer">
+            <p>👨‍🏫 professor · ensino médio · tecnologia e inovação</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript externo -->
+    <script src="script.js"></script>
+</body>
+</html>
