@@ -1,4 +1,4 @@
-/* style.css – layout inovador, tecnológico e com referências ao futebol */
+/* style.css – layout inovador com fundo de copa e vídeos de craques */
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +7,6 @@
 }
 
 body {
-    background: radial-gradient(circle at 20% 30%, #0a0f1e, #03050b);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -15,19 +14,93 @@ body {
     padding: 2rem 1rem;
     position: relative;
     overflow-x: hidden;
+    background: #0a0f1e;
 }
 
-/* efeito de grade tecnológica (fundo sutil) */
-body::before {
-    content: '';
+/* === FUNDO TEMÁTICO COPA === */
+.video-background {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 0;
+    overflow: hidden;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.25;
+}
+
+.video-background .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(10, 15, 30, 0.7), rgba(3, 5, 11, 0.95));
+    z-index: 1;
+}
+
+/* Bolas de futebol flutuantes */
+.floating-balls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ball {
+    position: absolute;
+    bottom: -80px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffffff, #e0e0e0);
+    border: 2px solid #333;
+    animation: floatBall 15s linear infinite;
+    opacity: 0.12;
+}
+
+.ball::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    border: 2px solid #333;
+}
+
+.ball::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: #333;
+}
+
+.ball:nth-child(odd)::after {
+    transform: translateX(-50%) rotate(45deg);
+}
+
+@keyframes floatBall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.05; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
 }
 
 .container {
@@ -73,9 +146,9 @@ body::before {
     text-shadow: 0 0 15px #3a6ea5;
 }
 
-/* CARD PRINCIPAL – estilo "vidro tecnológico" */
+/* CARD PRINCIPAL */
 .card {
-    background: rgba(12, 20, 35, 0.65);
+    background: rgba(12, 20, 35, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(100, 180, 255, 0.25);
@@ -256,9 +329,9 @@ body::before {
     text-shadow: 0 0 10px #0066ff;
 }
 
-/* GALERIA DE JOGADORES LENDÁRIOS – com embaixadinhas e ginga */
+/* GALERIA DE VÍDEOS */
 .gallery {
-    background: rgba(8, 16, 30, 0.5);
+    background: rgba(8, 16, 30, 0.6);
     backdrop-filter: blur(4px);
     border-radius: 60px;
     padding: 2.2rem 2rem;
@@ -276,29 +349,57 @@ body::before {
     border-bottom: 1px dashed #2a4f7a;
     padding-bottom: 0.5rem;
 }
-.player-grid {
+.video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
     justify-items: center;
 }
-.player-grid img {
+
+.video-wrapper {
+    position: relative;
     width: 100%;
-    max-width: 180px;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #3c7bb0;
-    box-shadow: 0 0 30px rgba(0, 150, 255, 0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 280px;
+    border-radius: 30px;
+    overflow: hidden;
     background: #0d1c2e;
-    display: block;
+    border: 3px solid #3c7bb0;
+    box-shadow: 0 0 30px rgba(0, 150, 255, 0.2);
+    transition: all 0.4s ease;
 }
-.player-grid img:hover {
-    transform: scale(1.08) rotate(-2deg);
+
+.video-wrapper:hover {
+    transform: scale(1.05);
     box-shadow: 0 0 50px #0099ff;
     border-color: #a0d0ff;
 }
+
+.video-wrapper iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+    border: none;
+    background: #0a1a2e;
+}
+
+.video-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 15px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    border-bottom-left-radius: 27px;
+    border-bottom-right-radius: 27px;
+}
+
 .credit {
     text-align: center;
     margin-top: 1.8rem;
@@ -328,10 +429,12 @@ body::before {
     .password-display { font-size: 1.5rem; }
     .options { gap: 0.6rem; }
     .controls { gap: 1.2rem; }
-    .player-grid { grid-template-columns: repeat(2, 1fr); }
+    .video-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
 }
 @media (max-width: 480px) {
     .password-box { padding-left: 1rem; flex-wrap: wrap; }
     .copy-btn { width: 50px; height: 50px; }
     .generate-btn { font-size: 1rem; padding: 0.7rem 1.5rem; }
+    .video-grid { grid-template-columns: 1fr; }
+    .video-wrapper { max-width: 100%; }
 }
